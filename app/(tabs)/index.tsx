@@ -1,5 +1,5 @@
-import Header from "@/components/common/Header";
-import { View, Text } from "react-native";
+import Header from "../../components/common/Header";
+import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
