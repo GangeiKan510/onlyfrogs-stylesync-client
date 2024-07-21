@@ -29,15 +29,15 @@ export default function Login() {
       <View className='mx-8 mt-20'>
         <View className='mb-4'>
           <Text className='text-[20px] font-bold'>Welcome Back!</Text>
-          <Text>Continue with one of the following:</Text>
+          <Text className='text-[16px]'>Continue with one of the following:</Text>
         </View>
         <View>
           <View className='mb-3'>
-            <Text className='mb-1'>Email Address</Text>
+            <Text className='text-[16px] mb-1'>Email Address</Text>
             <TextInput className='bg-[#F3F3F3] h-[42px] rounded-[10px] px-4' value={email} onChangeText={(input) => setEmail(input)}/>
           </View>
           <View className='mb-3'>
-            <Text>Password</Text>
+            <Text className='text-[16px]'>Password</Text>
             <TextInput className='bg-[#F3F3F3] h-[42px] rounded-[10px] px-4' value={password} onChangeText={(input) => setPassword(input)} secureTextEntry={true}/>
           </View>
           <View>
@@ -46,16 +46,16 @@ export default function Login() {
             : 
             <Pressable className='bg-[#7ab2b2] h-[42px] rounded-[10px] px-4' onPress={handleSignIn}>
               <View className="flex-1 justify-center items-center">
-                <Text className="text-white">Login</Text>
+                <Text className="text-white text-[16px]">Login</Text>
               </View>
             </Pressable>}
-            <Link href={'/register'} className='text-[#7ab2b2] underline text-center mt-3'>I don't have an account</Link>
+            <Link href={'/register'} className='text-[#7ab2b2] text-[16px] underline text-center mt-3'>I don't have an account</Link>
             <View className='my-4'>
-              <Text className='text-center'>or</Text>
+              <Text className='text-center text-[16px]'>or</Text>
             </View>
             <Pressable className='bg-[#F3F3F3] h-[42px] rounded-[10px] px-4'>
             <View className="flex-1 justify-center items-center">
-                <Text>Sign Up with Google</Text>
+                <Link href={'/welcome'} className='text-[16px]'>Sign Up with Google</Link>
               </View>
             </Pressable>
           </View>

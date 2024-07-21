@@ -55,8 +55,8 @@ export default function Register() {
                 <Text className='text-center'>or</Text>
               </View>
               <Pressable className='bg-[#F3F3F3] h-[42px] rounded-[10px] px-4'>
-              <View className="flex-1 justify-center items-center">
-                  <Text>Sign Up with Google</Text>
+                <View className="flex-1 justify-center items-center">
+                  <Link href={'/welcome'}>Sign Up with Google</Link>
                 </View>
               </Pressable>
             </View>

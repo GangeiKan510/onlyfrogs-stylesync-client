@@ -31,13 +31,13 @@
       [
         "expo-font",
         {
-          "fonts": 
-          [
+          "fonts": [
             "./assets/fonts/Inter-Regular.ttf",
             "./assets/fonts/Judson-Regular.ttf"
           ]
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true
