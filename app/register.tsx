@@ -1,10 +1,12 @@
 import { TextInput, View, Text, TouchableOpacity, ActivityIndicator, Button, KeyboardAvoidingView, Pressable } from 'react-native';
 import { useState } from 'react';
 import Header from '@/components/common/Header';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { signUp } from '@/components/auth/sign-up';
 
 export default function Register() {
+
+  const router = useRouter();
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -16,6 +18,7 @@ export default function Register() {
       const res = await signUp(email, password);
       console.log(res);
       setLoading(false);
+      router.replace('login');
     } catch (error) {
       console.log(error);
       alert('Sign in failed:' + error);
@@ -37,7 +40,7 @@ export default function Register() {
               <Text className='mb-1'>Email Address</Text>
               <TextInput className='bg-[#F3F3F3] h-[42px] rounded-[10px] px-4' value={email} onChangeText={(input) => setEmail(input)}/>
             </View>
-            <View className='mb-3'>
+            <View className='mb-8'>
               <Text>Password</Text>
               <TextInput className='bg-[#F3F3F3] h-[42px] rounded-[10px] px-4' value={password} onChangeText={(input) => setPassword(input)} secureTextEntry={true}/>
             </View>
