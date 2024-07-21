@@ -1,4 +1,4 @@
-import { TextInput, View, Text, TouchableOpacity, ActivityIndicator, Button, KeyboardAvoidingView } from 'react-native';
+import { TextInput, View, Text, TouchableOpacity, ActivityIndicator, Button, KeyboardAvoidingView, Pressable } from 'react-native';
 import { useState } from 'react';
 import Header from '@/components/common/Header';
 import { Link } from 'expo-router';
@@ -24,45 +24,41 @@ export default function Register() {
   }
 
   return (
-    <View className='mx-8'>
-      <KeyboardAvoidingView behavior='padding'>
+    <View className='flex-1 bg-[#ffffff]'>
+      <KeyboardAvoidingView>
         <Header />
-        <View>
-          <View>
+        <View className='mx-8 mt-20'>
+          <View className='mb-4'>
             <Text className='text-[20px] font-bold'>Thank you for styling with us!</Text>
             <Text>Please enter your details for registration:</Text>
           </View>
           <View>
-            {/* <View>
-              <Text>First Name</Text>
-              <TextInput/>
+            <View className='mb-3'>
+              <Text className='mb-1'>Email Address</Text>
+              <TextInput className='bg-[#F3F3F3] h-[42px] rounded-[10px] px-4' value={email} onChangeText={(input) => setEmail(input)}/>
             </View>
-            <View>
-              <Text>Last Name</Text>
-              <TextInput />
-            </View> */}
-            <View>
-              <Text>Email</Text>
-              <TextInput value={email} onChangeText={(input) => setEmail(input)}/>
-            </View>
-            <View>
+            <View className='mb-3'>
               <Text>Password</Text>
-              <TextInput value={password} onChangeText={(input) => setPassword(input)} secureTextEntry={true}/>
+              <TextInput className='bg-[#F3F3F3] h-[42px] rounded-[10px] px-4' value={password} onChangeText={(input) => setPassword(input)} secureTextEntry={true}/>
             </View>
-            {/* <View>
-              <Text>Confirm Password</Text>
-              <TextInput secureTextEntry={true}/>
-            </View> */}
             <View>
-              { loading ? <ActivityIndicator size={"large"} color={"#0000ff"}/> 
-              : <Button title='Sign Up' onPress={handleSignUp}/>}
-              <Link className='underline' href={'/login'}>I already have an account</Link>
-              <View>
-                <Text>or</Text>
+              { loading 
+              ? <ActivityIndicator size={"large"} color={"#7AB2B2"}/> 
+              : 
+              <Pressable className='bg-[#7ab2b2] h-[42px] rounded-[10px] px-4' onPress={handleSignUp}>
+                <View className="flex-1 justify-center items-center">
+                  <Text className="text-white">Sign Up</Text>
+                </View>
+              </Pressable>}
+              <Link href={'/login'} className='text-[#7ab2b2] underline text-center mt-3'>I already have an account</Link>
+              <View className='my-4'>
+                <Text className='text-center'>or</Text>
               </View>
-              <TouchableOpacity>
-                <Text>Sign up with Google</Text>
-              </TouchableOpacity>
+              <Pressable className='bg-[#F3F3F3] h-[42px] rounded-[10px] px-4'>
+              <View className="flex-1 justify-center items-center">
+                  <Text>Sign Up with Google</Text>
+                </View>
+              </Pressable>
             </View>
           </View>
         </View>
