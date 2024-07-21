@@ -8,8 +8,10 @@ export const signUp = async( email: string, password: string ) => {
   try {
     const res = await createUserWithEmailAndPassword(firebaseAuth, email, password);
     console.log(res);
+    return true;
   } catch (error) {
     console.log(error);
     alert('Sign in failed:' + error);
+    return false;
   }
 }

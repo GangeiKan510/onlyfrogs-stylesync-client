@@ -18,7 +18,9 @@ export default function Register() {
       const res = await signUp(email, password);
       console.log(res);
       setLoading(false);
-      router.replace('login');
+      if (res) {
+        router.replace('login');
+      }
     } catch (error) {
       console.log(error);
       alert('Sign in failed:' + error);
