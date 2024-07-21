@@ -1,6 +1,7 @@
 import { View, Text, Pressable, ImageBackground } from 'react-native';
 import React from 'react';
 import { useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Welcome = () => {
   const router = useRouter();
@@ -11,29 +12,28 @@ const Welcome = () => {
       className='flex-1'
       resizeMode="cover"
     >
-      <View className='flex-1 bg-transparent'>
-        <View className='mx-8 mt-[450px]'>
-          <View className='mb-[275px]'>
-            <Text className='text-[16px] text-center'>Welcome to</Text>
+      <SafeAreaView className='flex-1'>
+        <View className='flex-1 justify-center items-center'>
+          <View className='mx-8 mb-28'>
             <Text className='text-[48px] text-center'>StyleSync</Text>
             <Text className='text-[16px] text-center'>Style effortlessly.</Text>
           </View>
-          <View>
-            <Pressable
-              onPress={() => router.push('/login')}
-              className='bg-[#7ab2b2] rounded-[10px] h-[48px] flex justify-center items-center mb-3'
-            >
-              <Text className='text-white text-[16px]'>Log in</Text>
-            </Pressable>
-            <Pressable
-              onPress={() => router.push('/register')}
-              className='border-[1px] rounded-[10px] h-[48px] flex justify-center items-center'
-            >
-              <Text className='text-[16px]'>Sign up</Text>
-            </Pressable>
-          </View>
         </View>
-      </View>
+        <View className='absolute bottom-12 left-0 right-0 px-8'>
+          <Pressable
+            onPress={() => router.push('/login')}
+            className='bg-[#7ab2b2] rounded-[10px] h-[48px] flex justify-center items-center mb-3'
+          >
+            <Text className='text-white text-[16px]'>Log in</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => router.push('/register')}
+            className='border rounded-[10px] h-[48px] flex justify-center items-center mb-2'
+          >
+            <Text className='text-[16px]'>Sign up</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
     </ImageBackground>
   );
 };
