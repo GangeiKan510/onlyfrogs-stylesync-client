@@ -1,13 +1,10 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebaseConfig";
 
-interface SignUpProps {
-  firebaseAuth: any;
-  email: string;
-  password: string;
-  loading: boolean
-};
+export const signUp = async( email: string, password: string ) => {
 
-export const signUp = async({firebaseAuth, email, password, loading}: SignUpProps ) => {
+  const firebaseAuth = auth;
+
   try {
     const res = await createUserWithEmailAndPassword(firebaseAuth, email, password);
     console.log(res);

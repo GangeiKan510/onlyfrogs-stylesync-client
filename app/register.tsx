@@ -1,21 +1,19 @@
-import { Image, SafeAreaView, TextInput, View, Text, TouchableOpacity, ActivityIndicator, Button, KeyboardAvoidingView } from 'react-native';
-import { auth } from '@/firebaseConfig';
+import { TextInput, View, Text, TouchableOpacity, ActivityIndicator, Button, KeyboardAvoidingView } from 'react-native';
 import { useState } from 'react';
 import Header from '@/components/common/Header';
 import { Link } from 'expo-router';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signUp } from '@/components/auth/sign-up';
 
 export default function Register() {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ loading, setLoading ] = useState(false);
-  const firebaseAuth = auth;
 
-  const signUp = async() => {
+  const handleSignUp = async() => {
     setLoading(true);
     try {
-      const res = await createUserWithEmailAndPassword(firebaseAuth, email, password);
+      const res = await signUp(email, password);
       console.log(res);
       setLoading(false);
     } catch (error) {
@@ -57,7 +55,7 @@ export default function Register() {
             </View> */}
             <View>
               { loading ? <ActivityIndicator size={"large"} color={"#0000ff"}/> 
-              : <Button title='Sign Up' onPress={signUp}/>}
+              : <Button title='Sign Up' onPress={handleSignUp}/>}
               <Link className='underline' href={'/login'}>I already have an account</Link>
               <View>
                 <Text>or</Text>

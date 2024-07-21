@@ -2,20 +2,18 @@ import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Button } fr
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/common/Header';
 import { Link } from 'expo-router';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/firebaseConfig';
+import { signIn } from '@/components/auth/sign-in';
 
 export default function Login() {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ loading , setLoading ] = useState(false);
-  const firebaseAuth = auth;
 
-  const signIn = async() => {
+  const handleSignIn = async() => {
     setLoading(true);
     try {
-      const res = await signInWithEmailAndPassword(firebaseAuth, email, password);
+      const res = await signIn(email, password);
       console.log(res);
       setLoading(false);
     } catch (error) {
@@ -44,7 +42,7 @@ export default function Login() {
           </View>
           <View>
             { loading ? <ActivityIndicator size={"large"} color={"#0000ff"}/> 
-            : <Button title='Login' onPress={signIn}/>}
+            : <Button title='Login' onPress={handleSignIn}/>}
             <Link href={'/register'} className='underline'>I don't have an account</Link>
             <View>
               <Text>or</Text>
