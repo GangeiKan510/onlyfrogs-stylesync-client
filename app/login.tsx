@@ -5,6 +5,7 @@ import { Link, useRouter } from 'expo-router';
 import { signIn } from '@/components/auth/sign-in';
 import { auth } from '@/firebaseConfig';
 import { onAuthStateChanged, User } from 'firebase/auth';
+import { routes } from '@/utils/routes';
 
 export default function Login() {
 
@@ -32,7 +33,7 @@ export default function Login() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        router.replace('(tabs)');
+        router.replace(routes.tabs);
       } else {
         setUser(null);
       }

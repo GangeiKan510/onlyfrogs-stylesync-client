@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Header from '@/components/common/Header';
 import { Link, useRouter } from 'expo-router';
 import { signUp } from '@/components/auth/sign-up';
+import { routes } from '@/utils/routes';
 
 export default function Register() {
 
@@ -19,7 +20,7 @@ export default function Register() {
       console.log(res);
       setLoading(false);
       if (res) {
-        router.replace('login');
+        router.replace(routes.login);
       }
     } catch (error) {
       console.log(error);
