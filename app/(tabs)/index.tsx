@@ -1,18 +1,19 @@
 import { View, Text, Pressable } from 'react-native';
 import React from 'react';
 import { useRouter } from 'expo-router';
-import { getAuth, signOut } from 'firebase/auth';
+import useSignOut from '@/network/firebase/sign-out';
+import { auth } from '@/firebaseConfig';
+import { routes } from '@/utils/routes';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const [signOut, loading, error] = useSignOut(auth);
 
   const handleLogout = async () => {
-    const auth = getAuth();
-    try {
-      await signOut(auth);
-      router.replace('login');
-    } catch (error) {
-      console.error('Error signing out:', error);
+    const isSignoutSuccessful = await signOut();
+
+    if (isSignoutSuccessful) {
+      router.push(routes.login);
     }
   };
 
