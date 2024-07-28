@@ -6,6 +6,7 @@ import { signIn } from '@/components/auth/sign-in';
 import { auth } from '@/firebaseConfig';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { routes } from '@/utils/routes';
+import CustomButton from '@/components/buttons/CustomButton';
 
 export default function Login() {
 
@@ -73,15 +74,7 @@ export default function Login() {
             />
           </View>
           <View>
-            {loading ? (
-              <ActivityIndicator size={"large"} color={"#7AB2B2"} />
-            ) : (
-              <Pressable className='bg-[#7ab2b2] h-[42px] rounded-[10px] px-4' onPress={handleSignIn}>
-                <View className="flex-1 justify-center items-center">
-                  <Text className="text-white text-[16px]">Login</Text>
-                </View>
-              </Pressable>
-            )}
+            <CustomButton isLoading={loading} callBack={handleSignIn} label={'Login'} type={'primary'} /> 
             <Link href={'/register'} className='text-[#7ab2b2] text-[16px] underline text-center mt-3'>
               I don't have an account
             </Link>
