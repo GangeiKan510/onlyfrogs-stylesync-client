@@ -1,16 +1,16 @@
 import { CreateUserData } from "@/utils/types/CreateUser";
 import { getWithFirebaseJwt, postWithFirebaseJwt } from "../firebase/requests-with-firebase";
 
-export const getAllUsers = async () => {
+export const getMe = async ({email}: {email: string}) => {
   try {
-    const response = await getWithFirebaseJwt("/web/users/get-users");
+    const response = await postWithFirebaseJwt("/web/users/get-me", {email: email});
     if (!response.ok) {
-      throw new Error(`Error fetching users: ${response.statusText}`);
+      throw new Error(`Error fetching user: ${response.statusText}`);
     }
-    const users = await response.json();
-    return users;
+    const me = await response.json();
+    return me;
   } catch (error) {
-    console.error("Failed to get all users", error);
+    console.error("Failed to get user", error);
     throw error;
   }
 };

@@ -31,7 +31,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const checkAuth = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         router.replace(routes.tabs);
@@ -40,7 +40,7 @@ export default function Login() {
       }
     });
 
-    return () => unsubscribe();
+    return () => checkAuth();
   }, [router]);
 
   if (user) {
