@@ -25,7 +25,6 @@ export default function Login() {
       setLoading(false);
     } catch (error) {
       console.log(error);
-      alert('Sign in failed:' + error);
       setLoading(false);
     }
   };

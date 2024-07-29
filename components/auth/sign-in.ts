@@ -1,5 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
+import { Alert } from "react-native";
 
 export const signIn = async(email: string, password: string ) => {
 
@@ -10,6 +11,6 @@ export const signIn = async(email: string, password: string ) => {
     console.log(res);
   } catch (error) {
     console.log(error);
-    alert('Sign in failed:' + error);
+    Alert.alert("Login Error", "Please check your credentials and try again.");
   }
 }
