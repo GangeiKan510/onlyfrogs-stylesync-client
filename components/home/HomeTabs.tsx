@@ -19,7 +19,7 @@ const HomeTabs = () => {
         <Pressable onPress={() => setActiveTab('Closet')} className="flex-1 items-start">
           <View>
             <Text className={`${activeTab === 'Closet' ? 'font-bold' : ''} text-base text-left`}>
-              Closet (3)
+              Closet ({CLOSET_CARDS.length})
             </Text>
             {activeTab === 'Closet' && (
               <View className="h-0.5 bg-black absolute left-0 right-0 mt-2" style={{ bottom: -10 }} />
