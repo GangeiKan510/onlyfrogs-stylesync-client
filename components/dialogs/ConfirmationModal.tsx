@@ -9,9 +9,10 @@ interface ConfirmationModalProps {
   description: string;
   isLoading: boolean;
   type: "primary" | "secondary";
+  confirmMessage: string;
 }
 
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ visible, onConfirm, onCancel, message, description, isLoading, type }) => {
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ visible, onConfirm, onCancel, message, description, isLoading, type, confirmMessage }) => {
 
   return (
     <Modal
@@ -22,7 +23,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ visible, onConfir
     >
       <View className="flex-1 justify-center items-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
         <View className="w-4/5 bg-white rounded-[10px] p-5 items-center">
-          <Text className="text-base mb-1 font-bold">{message}</Text>
+          <Text className="text-[18px] mb-1 font-bold">{message}</Text>
           <Text className="text-base mb-4">{description}</Text>
           <View className="flex-row justify-between w-full">
             <Pressable 
@@ -35,7 +36,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ visible, onConfir
               className="h-[42px] flex-1 border border-[#7ab3b3] bg-[#7ab3b3] rounded-lg mx-2 justify-center items-center" 
               onPress={onConfirm}
             >
-              <Text className="text-base text-white text-center">{isLoading ? <ActivityIndicator size={"small"} color={type === "primary" ? "#fff" : "#7ab2b2"} /> : "Log Out"}</Text>
+              <Text className="text-base text-white text-center">{isLoading ? <ActivityIndicator size={"small"} color={type === "primary" ? "#fff" : "#7ab2b2"} /> : confirmMessage}</Text>
             </Pressable>
           </View>
         </View>

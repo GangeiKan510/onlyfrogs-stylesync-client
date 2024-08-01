@@ -51,7 +51,7 @@ const TopGreeting = () => {
         visible={modalVisible}
         onConfirm={handleLogout}
         onCancel={() => setModalVisible(false)}
-        message="Logout?" description={"Are you sure you want to log out?"} isLoading={loading} type={'primary'}      />
+        message="Wait, just a sec!" description={"Are you sure you want to log out?"} isLoading={loading} type={'primary'} confirmMessage={"Logout"}      />
     </View>
   );
 };
