@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
+import ClosetTab from './closet/ClosetTab';
+
+const CLOSET_CARDS = [
+  { id: 1, imageUri: 'https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg', label: 'Formal Tops' },
+  { id: 2, imageUri: 'https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg', label: 'Casual Tops' },
+  { id: 3, imageUri: 'https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg', label: 'Outerwear' },
+  { id: 4, imageUri: 'https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg', label: 'Bottoms' },
+  { id: 5, imageUri: 'https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg', label: 'Dresses' },
+];
 
 const HomeTabs = () => {
   const [activeTab, setActiveTab] = useState('Closet');
@@ -38,8 +47,8 @@ const HomeTabs = () => {
           </View>
         </Pressable>
       </View>
-      <View className="mt-3">
-        {activeTab === 'Closet' && <Text>Closet Content</Text>}
+      <View className="mt-1">
+        {activeTab === 'Closet' && <ClosetTab closetCards={CLOSET_CARDS}/>}
         {activeTab === 'Pieces' && <Text>Pieces Content</Text>}
         {activeTab === 'Fits' && <Text>Fits Content</Text>}
       </View>

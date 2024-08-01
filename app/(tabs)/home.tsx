@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <View className="flex-1 bg-[#ffffff]">
       <Header />
-      <View className="mx-8">
+      <View className="mx-7">
         <TopGreeting />
         <HomeTabs />
       </View>
