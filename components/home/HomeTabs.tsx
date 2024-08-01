@@ -9,7 +9,7 @@ const HomeTabs = () => {
       <View className="flex-row justify-between items-center mb-1 border-b-[2px] border-[#F3F3F3] pb-2">
         <Pressable onPress={() => setActiveTab('Closet')} className="flex-1 items-start">
           <View>
-            <Text className={`${activeTab === 'Closet' ? 'font-bold' : ''} text-[16px] text-left`}>
+            <Text className={`${activeTab === 'Closet' ? 'font-bold' : ''} text-base text-left`}>
               Closet (3)
             </Text>
             {activeTab === 'Closet' && (
@@ -19,7 +19,7 @@ const HomeTabs = () => {
         </Pressable>
         <Pressable onPress={() => setActiveTab('Pieces')} className="flex-1 items-center">
           <View>
-            <Text className={`${activeTab === 'Pieces' ? 'font-bold' : ''} text-center text-[16px]`}>
+            <Text className={`${activeTab === 'Pieces' ? 'font-bold' : ''} text-center text-base`}>
               Pieces (11)
             </Text>
             {activeTab === 'Pieces' && (
@@ -29,7 +29,7 @@ const HomeTabs = () => {
         </Pressable>
         <Pressable onPress={() => setActiveTab('Fits')} className="flex-1 items-end">
           <View>
-            <Text className={`${activeTab === 'Fits' ? 'font-bold' : ''} text-right text-[16px]`}>
+            <Text className={`${activeTab === 'Fits' ? 'font-bold' : ''} text-right text-base`}>
               Fits (2)
             </Text>
             {activeTab === 'Fits' && (

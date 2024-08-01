@@ -1,12 +1,32 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
+import { View, Text, Pressable } from 'react-native';
 import { useUser } from '../config/user-context';
 import Avatar from '../common/Avatar';
+import ConfirmationModal from '../dialogs/ConfirmationModal';
+import useSignOut from '@/network/firebase/sign-out';
+import { auth } from '@/firebaseConfig';
+import { routes } from '@/utils/routes';
+import { useRouter } from 'expo-router';
 
 const TopGreeting = () => {
   const { user } = useUser();
+  const router = useRouter()
 
-  console.log(user?.first_name.split(" ")[0]);
+  const [signOut, loading, error] = useSignOut(auth);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [buttonLoading , setButtonLoading] = useState(false);
+
+  const handleLogout = async () => {
+    setModalVisible(false);
+    setButtonLoading(true);
+
+    const isSignoutSuccessful = await signOut();
+
+    if (isSignoutSuccessful) {
+      router.replace(routes.login);
+    }
+    setButtonLoading(false);
+  };
 
   return (
     <View className="flex-row justify-between items-center mt-5">
@@ -16,14 +36,22 @@ const TopGreeting = () => {
           alt={'profile-alt'} 
         />
         <View className="ml-3">
-          <Text className="font-bold text-lg">Welcome Back, {user?.first_name.split(" ")[0]}!</Text>
-          <Text className="text-[16px] text-text-tertiary underline">Log out</Text>
+          <Text className="font-bold text-base">Welcome Back, {user?.first_name.split(" ")[0]}!</Text>
+          <Pressable onPress={() => setModalVisible(true)}>
+            <Text className="text-base text-text-tertiary underline">Log out</Text>
+          </Pressable>
         </View>
       </View>
       <View>
-        <Text className="text-[16px]">Tokens:</Text>
-        <Text className="text-[16px] text-right">{user?.tokens}</Text>
+        <Text className="text-base">Tokens:</Text>
+        <Text className="text-base text-right">{user?.tokens}</Text>
       </View>
+
+      <ConfirmationModal
+        visible={modalVisible}
+        onConfirm={handleLogout}
+        onCancel={() => setModalVisible(false)}
+        message="Logout?" description={"Are you sure you want to log out?"} isLoading={loading} type={'primary'}      />
     </View>
   );
 };
