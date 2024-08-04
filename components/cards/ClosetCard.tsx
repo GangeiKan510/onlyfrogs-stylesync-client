@@ -3,11 +3,11 @@ import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 interface CardProps {
-  label?: string;
+  name?: string;
   onPress?: () => void;
 }
 
-const ClosetCard: React.FC<CardProps> = ({ label, onPress }) => {
+const ClosetCard: React.FC<CardProps> = ({ name, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -27,7 +27,7 @@ const ClosetCard: React.FC<CardProps> = ({ label, onPress }) => {
               style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
               className="w-full h-full absolute justify-center items-center"
             >
-              <Text className="text-base text-white">{label}</Text>
+              <Text className="text-base text-white text-center">{name}</Text>
             </View>
           </ImageBackground>
         ) : (

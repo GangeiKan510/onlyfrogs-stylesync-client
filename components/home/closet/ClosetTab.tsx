@@ -11,13 +11,10 @@ import ClosetCard from "@/components/cards/ClosetCard";
 import { useUser } from "@/components/config/user-context";
 import { createCloset } from "@/network/web/closet";
 import AddClosetCard from "@/components/cards/AddClosetCard";
+import ClosetType from "@/utils/types/ClosetType";
 
 interface ClosetTabProps {
-  closetCards: {
-    id: number;
-    imageUri: string;
-    label: string;
-  }[];
+  closetCards: ClosetType[] | undefined;
 }
 
 const ClosetTab = ({ closetCards }: ClosetTabProps) => {
@@ -58,8 +55,8 @@ const ClosetTab = ({ closetCards }: ClosetTabProps) => {
   return (
     <View className="flex-1">
       <View className="flex-row flex-wrap justify-start">
-        {closetCards.map((item) => (
-          <ClosetCard key={item.id} label={item.label} />
+        {closetCards?.map((item) => (
+          <ClosetCard key={item.id} name={item.name} />
         ))}
         <AddClosetCard onPress={handleModalVisibility} />
       </View>

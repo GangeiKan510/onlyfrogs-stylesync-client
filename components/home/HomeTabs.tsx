@@ -1,42 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import ClosetTab from "./closet/ClosetTab";
-
-const CLOSET_CARDS = [
-  {
-    id: 1,
-    imageUri:
-      "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
-    label: "Formal Tops",
-  },
-  {
-    id: 2,
-    imageUri:
-      "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
-    label: "Casual Tops",
-  },
-  {
-    id: 3,
-    imageUri:
-      "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
-    label: "Outerwear",
-  },
-  {
-    id: 4,
-    imageUri:
-      "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
-    label: "Bottoms",
-  },
-  {
-    id: 5,
-    imageUri:
-      "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
-    label: "Dresses",
-  },
-];
+import { useUser } from "../config/user-context";
+import { getClosetsbyUserId } from "@/network/web/closet";
+import ClosetType from "@/utils/types/ClosetType";
 
 const HomeTabs = () => {
+  const { user } = useUser();
   const [activeTab, setActiveTab] = useState("Closet");
+  const [closets, setClosets] = useState<ClosetType[]>();
+
+  useEffect(() => {
+    const fetchClosets = async () => {
+      if (user?.id) {
+        try {
+          const fetchedClosets = await getClosetsbyUserId({
+            user_id: user?.id,
+          });
+          console.log("Closets for user:", fetchedClosets);
+          setClosets(fetchedClosets);
+        } catch (error) {
+          console.error("Error fetching user closets:", error);
+        }
+      }
+    };
+
+    fetchClosets();
+  }, [user]);
+
+  console.log("Closets", closets);
 
   return (
     <View className="mt-4">
@@ -49,7 +41,7 @@ const HomeTabs = () => {
             <Text
               className={`${activeTab === "Closet" ? "font-bold" : ""} text-base text-left`}
             >
-              Closet ({CLOSET_CARDS.length})
+              Closet ({closets?.length})
             </Text>
             {activeTab === "Closet" && (
               <View
@@ -97,7 +89,7 @@ const HomeTabs = () => {
         </Pressable>
       </View>
       <View className="mt-1">
-        {activeTab === "Closet" && <ClosetTab closetCards={CLOSET_CARDS} />}
+        {activeTab === "Closet" && <ClosetTab closetCards={closets} />}
         {activeTab === "Pieces" && <Text>Pieces Content</Text>}
         {activeTab === "Fits" && <Text>Fits Content</Text>}
       </View>
