@@ -10,6 +10,7 @@ import {
 import ClosetCard from "@/components/cards/ClosetCard";
 import { useUser } from "@/components/config/user-context";
 import { createCloset } from "@/network/web/closet";
+import AddClosetCard from "@/components/cards/AddClosetCard";
 
 interface ClosetTabProps {
   closetCards: {
@@ -60,7 +61,7 @@ const ClosetTab = ({ closetCards }: ClosetTabProps) => {
         {closetCards.map((item) => (
           <ClosetCard key={item.id} label={item.label} />
         ))}
-        <ClosetCard onPress={handleModalVisibility} />
+        <AddClosetCard onPress={handleModalVisibility} />
       </View>
 
       <Modal
