@@ -1,4 +1,4 @@
 export const routes = {
   login: "login",
-  tabs: "(tabs)"
-}
+  tabs: "(tabs)",
+};

@@ -1,15 +1,14 @@
-import { View, Text, Pressable } from 'react-native';
-import React, { useEffect } from 'react';
-import { useRouter } from 'expo-router';
-import useSignOut from '@/network/firebase/sign-out';
-import { auth } from '@/firebaseConfig';
-import { routes } from '@/utils/routes';
-import { useUser } from '@/components/config/user-context';
+import { View, Text, Pressable } from "react-native";
+import { useRouter } from "expo-router";
+import useSignOut from "@/network/firebase/sign-out";
+import { auth } from "@/firebaseConfig";
+import { routes } from "@/utils/routes";
+import { useUser } from "@/components/config/user-context";
 
 export default function HomeScreen() {
   const router = useRouter();
   const { user } = useUser();
-  const [signOut, loading, error] = useSignOut(auth);
+  const [signOut] = useSignOut(auth);
 
   const handleLogout = async () => {
     const isSignoutSuccessful = await signOut();
@@ -20,10 +19,12 @@ export default function HomeScreen() {
   };
 
   return (
-    <View className='flex-1 justify-center items-center'>
+    <View className="flex-1 justify-center items-center">
       <Text>Welcome back, {user?.first_name}!</Text>
       <Pressable onPress={handleLogout}>
-        <Text className='text-[#7ab2b2] text-[16px] underline mt-3'>Logout</Text>
+        <Text className="text-[#7ab2b2] text-[16px] underline mt-3">
+          Logout
+        </Text>
       </Pressable>
     </View>
   );

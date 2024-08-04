@@ -9,7 +9,7 @@ const getWithFirebaseJwt = async (endpoint: string): Promise<Response> => {
 
 const postWithFirebaseJwt = async (
   endpoint: string,
-  body: any
+  body: any,
 ): Promise<Response> => {
   const url = `${process.env.EXPO_PUBLIC_API_SERVER}${endpoint}`;
   return fetchWithFirebaseJwt(url, {

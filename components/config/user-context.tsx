@@ -1,7 +1,13 @@
-import React, { createContext, useCallback, useContext, useEffect, useState, ReactNode } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/firebaseConfig';
-import { getMe } from '@/network/web/user';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebaseConfig";
+import { getMe } from "@/network/web/user";
 
 type UserDetails = {
   birth_date: string | null;
@@ -27,7 +33,9 @@ interface UserContextProps {
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
 
-export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({
+  children,
+}) => {
   const [user, setUser] = useState<UserDetails | null>(null);
 
   const updateUser = useCallback((userData: UserDetails | null) => {
@@ -40,7 +48,7 @@ export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         const userInfo = await getMe({ email: auth.currentUser.email });
         updateUser(userInfo);
       } catch (error) {
-        console.error('Error fetching user info:', error);
+        console.error("Error fetching user info:", error);
       }
     }
   }, [updateUser]);
@@ -52,7 +60,7 @@ export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
           const userInfo = await getMe({ email: firebaseUser.email as string });
           updateUser(userInfo);
         } catch (error) {
-          console.error('Error fetching user info:', error);
+          console.error("Error fetching user info:", error);
         }
       } else {
         updateUser(null);
@@ -72,7 +80,7 @@ export const UserProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
 export const useUser = (): UserContextProps => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
+    throw new Error("useUser must be used within a UserProvider");
   }
   return context;
 };

@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 
-interface ConfirmationModalProps {
+interface AddClosetModalProps {
   visible: boolean;
   onConfirm: (event: GestureResponderEvent) => void;
   onCancel: () => void;
@@ -18,7 +18,7 @@ interface ConfirmationModalProps {
   confirmMessage: string;
 }
 
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+const AddClosetModal: React.FC<AddClosetModalProps> = ({
   visible,
   onConfirm,
   onCancel,
@@ -40,8 +40,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
       >
         <View className="w-4/5 bg-white rounded-[10px] p-5 items-center">
-          <Text className="text-[18px] mb-1 font-bold">{message}</Text>
-          <Text className="text-base mb-4">{description}</Text>
+          <Text className="text-[18px] mb-1 font-bold">Add Closet</Text>
           <View className="flex-row justify-between w-full">
             <Pressable
               className="h-[42px] flex-1 border border-[#7ab3b3] rounded-lg mx-2 justify-center items-center"
@@ -73,4 +72,4 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   );
 };
 
-export default ConfirmationModal;
+export default AddClosetModal;

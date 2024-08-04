@@ -1,9 +1,11 @@
 import { CreateUserData } from "@/utils/types/CreateUser";
-import { getWithFirebaseJwt, postWithFirebaseJwt } from "../firebase/requests-with-firebase";
+import { postWithFirebaseJwt } from "../firebase/requests-with-firebase";
 
-export const getMe = async ({email}: {email: string}) => {
+export const getMe = async ({ email }: { email: string }) => {
   try {
-    const response = await postWithFirebaseJwt("/web/users/get-me", {email: email});
+    const response = await postWithFirebaseJwt("/web/users/get-me", {
+      email: email,
+    });
     if (!response.ok) {
       throw new Error(`Error fetching user: ${response.statusText}`);
     }
@@ -17,7 +19,10 @@ export const getMe = async ({email}: {email: string}) => {
 
 export const createUser = async (userData: CreateUserData) => {
   try {
-    const response = await postWithFirebaseJwt("/web/users/create-user", userData);
+    const response = await postWithFirebaseJwt(
+      "/web/users/create-user",
+      userData,
+    );
 
     if (!response.ok) {
       throw new Error(`Error creating user: ${response.statusText}`);
