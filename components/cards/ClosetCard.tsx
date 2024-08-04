@@ -3,18 +3,17 @@ import { View, Text, ImageBackground, TouchableOpacity } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 interface CardProps {
-  imageUri?: string;
   label?: string;
   onPress?: () => void;
 }
 
-const ClosetCard: React.FC<CardProps> = ({ imageUri, label, onPress }) => {
+const ClosetCard: React.FC<CardProps> = ({label, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={{ width: '30%', minWidth: 100, aspectRatio: 1 }} className="m-1">
       <View className="w-full h-full rounded-[10px] overflow-hidden">
-        {imageUri ? (
+        {true ? (
           <ImageBackground
-            source={{ uri: imageUri }}
+            source={{ uri: "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg" }}
             className="w-full h-full justify-center items-center"
             resizeMode="cover"
           >
