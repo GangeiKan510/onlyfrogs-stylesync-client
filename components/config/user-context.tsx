@@ -9,6 +9,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
 import { getMe } from "@/network/web/user";
 
+type Closet = {
+  id: string;
+  name: string;
+  description: string;
+  serial: number;
+  user_id: string;
+};
+
 type UserDetails = {
   birth_date: string | null;
   budget_preferences: object;
@@ -23,6 +31,7 @@ type UserDetails = {
   skin_tone_classification: string | null;
   style_preferences: string[];
   tokens: number;
+  closets: Closet[]; // Add this line
 };
 
 interface UserContextProps {

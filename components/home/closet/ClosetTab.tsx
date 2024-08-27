@@ -18,7 +18,7 @@ interface ClosetTabProps {
 }
 
 const ClosetTab = ({ closetCards }: ClosetTabProps) => {
-  const { user } = useUser();
+  const { user, refetchMe } = useUser();
 
   const [closetName, setClosetName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -44,12 +44,17 @@ const ClosetTab = ({ closetCards }: ClosetTabProps) => {
       user_id: user?.id as string,
     };
 
-    await createCloset(closetData);
-
-    setClosetName("");
-    setDescription("");
-    setModalVisible(false);
-    setIsRequestLoading(false);
+    try {
+      await createCloset(closetData);
+      await refetchMe(); // Refresh the user data after creating the closet
+    } catch (error) {
+      console.error("Error creating closet:", error);
+    } finally {
+      setClosetName("");
+      setDescription("");
+      setModalVisible(false);
+      setIsRequestLoading(false);
+    }
   };
 
   return (

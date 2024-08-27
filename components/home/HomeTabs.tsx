@@ -1,34 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import ClosetTab from "./closet/ClosetTab";
 import { useUser } from "../config/user-context";
-import { getClosetsbyUserId } from "@/network/web/closet";
-import ClosetType from "@/utils/types/ClosetType";
 
 const HomeTabs = () => {
   const { user } = useUser();
   const [activeTab, setActiveTab] = useState("Closet");
-  const [closets, setClosets] = useState<ClosetType[]>();
 
-  useEffect(() => {
-    const fetchClosets = async () => {
-      if (user?.id) {
-        try {
-          const fetchedClosets = await getClosetsbyUserId({
-            user_id: user?.id,
-          });
-          console.log("Closets for user:", fetchedClosets);
-          setClosets(fetchedClosets);
-        } catch (error) {
-          console.error("Error fetching user closets:", error);
-        }
-      }
-    };
+  // Directly use closets from user object
+  const closets = user?.closets || [];
 
-    fetchClosets();
-  }, [user]);
-
-  console.log("Closets", closets);
+  console.log("User", user);
 
   return (
     <View className="mt-4">
@@ -39,9 +21,11 @@ const HomeTabs = () => {
         >
           <View>
             <Text
-              className={`${activeTab === "Closet" ? "font-bold" : ""} text-base text-left`}
+              className={`${
+                activeTab === "Closet" ? "font-bold" : ""
+              } text-base text-left`}
             >
-              Closet ({closets?.length})
+              Closet ({closets.length})
             </Text>
             {activeTab === "Closet" && (
               <View
@@ -57,7 +41,9 @@ const HomeTabs = () => {
         >
           <View>
             <Text
-              className={`${activeTab === "Pieces" ? "font-bold" : ""} text-center text-base`}
+              className={`${
+                activeTab === "Pieces" ? "font-bold" : ""
+              } text-center text-base`}
             >
               Pieces (11)
             </Text>
@@ -75,7 +61,9 @@ const HomeTabs = () => {
         >
           <View>
             <Text
-              className={`${activeTab === "Fits" ? "font-bold" : ""} text-right text-base`}
+              className={`${
+                activeTab === "Fits" ? "font-bold" : ""
+              } text-right text-base`}
             >
               Fits (2)
             </Text>
