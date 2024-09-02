@@ -26,17 +26,17 @@ const ClosetCard: React.FC<CardProps> = ({ name, onPress }) => {
     >
       <View className="w-full h-full rounded-[10px] overflow-hidden">
         {true ? (
-          <ImageBackground
-            source={{
-              uri: "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
-            }}
-            className="w-full h-full justify-center items-center"
-            resizeMode="cover"
+          <Pressable
+            onPress={() =>
+              router.replace(routes.expandedCloset + name?.split(" ")[1])
+            }
           >
-            <Pressable
-              onPress={() => {
-                router.replace(routes.closetExpanded + name?.split(" ")[1]);
+            <ImageBackground
+              source={{
+                uri: "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
               }}
+              className="w-full h-full justify-center items-center"
+              resizeMode="cover"
             >
               <View
                 style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
@@ -44,8 +44,8 @@ const ClosetCard: React.FC<CardProps> = ({ name, onPress }) => {
               >
                 <Text className="text-base text-white text-center">{name}</Text>
               </View>
-            </Pressable>
-          </ImageBackground>
+            </ImageBackground>
+          </Pressable>
         ) : (
           <View
             style={{ backgroundColor: "#d9d9d9" }}

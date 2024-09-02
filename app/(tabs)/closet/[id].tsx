@@ -1,12 +1,16 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useLocalSearchParams } from "expo-router";
 
-const ClosetExpanded = () => {
+const Page = () => {
+  const { id } = useLocalSearchParams();
+
   return (
-    <View>
-      <Text>ClosetExpanded</Text>
-    </View>
+    <SafeAreaView>
+      <Text>Test PR {id}</Text>
+    </SafeAreaView>
   );
 };
 
-export default ClosetExpanded;
+export default Page;
