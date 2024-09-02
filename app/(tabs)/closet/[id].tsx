@@ -1,11 +1,15 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useLocalSearchParams } from "expo-router";
 
 const Page = () => {
+  const { id } = useLocalSearchParams();
+
   return (
-    <View>
-      <Text>Test</Text>
-    </View>
+    <SafeAreaView>
+      <Text>Test PR {id}</Text>
+    </SafeAreaView>
   );
 };
 
