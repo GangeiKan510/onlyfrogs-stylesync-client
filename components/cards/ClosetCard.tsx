@@ -1,6 +1,14 @@
 import React from "react";
-import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useRouter } from "expo-router";
+import { routes } from "@/utils/routes";
 
 interface CardProps {
   name?: string;
@@ -8,6 +16,8 @@ interface CardProps {
 }
 
 const ClosetCard: React.FC<CardProps> = ({ name, onPress }) => {
+  const router = useRouter();
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -16,20 +26,24 @@ const ClosetCard: React.FC<CardProps> = ({ name, onPress }) => {
     >
       <View className="w-full h-full rounded-[10px] overflow-hidden">
         {true ? (
-          <ImageBackground
-            source={{
-              uri: "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
-            }}
-            className="w-full h-full justify-center items-center"
-            resizeMode="cover"
+          <Pressable
+            onPress={() => router.replace(routes.expandedCloset + { name })}
           >
-            <View
-              style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
-              className="w-full h-full absolute justify-center items-center"
+            <ImageBackground
+              source={{
+                uri: "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
+              }}
+              className="w-full h-full justify-center items-center"
+              resizeMode="cover"
             >
-              <Text className="text-base text-white text-center">{name}</Text>
-            </View>
-          </ImageBackground>
+              <View
+                style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
+                className="w-full h-full absolute justify-center items-center"
+              >
+                <Text className="text-base text-white text-center">{name}</Text>
+              </View>
+            </ImageBackground>
+          </Pressable>
         ) : (
           <View
             style={{ backgroundColor: "#d9d9d9" }}
