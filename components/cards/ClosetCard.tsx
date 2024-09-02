@@ -27,7 +27,9 @@ const ClosetCard: React.FC<CardProps> = ({ name, onPress }) => {
       <View className="w-full h-full rounded-[10px] overflow-hidden">
         {true ? (
           <Pressable
-            onPress={() => router.replace(routes.expandedCloset + { name })}
+            onPress={() =>
+              router.replace(routes.expandedCloset + name?.split(" ")[1])
+            }
           >
             <ImageBackground
               source={{
