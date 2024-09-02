@@ -12,6 +12,7 @@ import { useUser } from "@/components/config/user-context";
 import { createCloset } from "@/network/web/closet";
 import AddClosetCard from "@/components/cards/AddClosetCard";
 import ClosetType from "@/utils/types/ClosetType";
+import UploadClothing from "./upload-clothing/UploadClothing";
 
 interface ClosetTabProps {
   closetCards: ClosetType[] | undefined;
@@ -25,6 +26,7 @@ const ClosetTab = ({ closetCards }: ClosetTabProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isRequestLoading, setIsRequestLoading] = useState(false);
   const [isClosetNameEmpty, setIsClosetNameEmpty] = useState(false);
+  const [selectedCloset, setSelectedCloset] = useState<ClosetType | null>(null);
 
   const handleModalVisibility = () => {
     setModalVisible(true);
@@ -57,11 +59,28 @@ const ClosetTab = ({ closetCards }: ClosetTabProps) => {
     }
   };
 
+  const handleClosetPress = (item: ClosetType) => {
+    setSelectedCloset(item);
+  };
+
+  if (selectedCloset) {
+    return (
+      <UploadClothing
+        item={selectedCloset}
+        onBack={() => setSelectedCloset(null)}
+      />
+    );
+  }
+
   return (
     <View className="flex-1">
       <View className="flex-row flex-wrap justify-start">
         {closetCards?.map((item) => (
-          <ClosetCard key={item.id} name={item.name} />
+          <ClosetCard
+            key={item.id}
+            name={item.name}
+            onPress={() => handleClosetPress(item)}
+          />
         ))}
         <AddClosetCard onPress={handleModalVisibility} />
       </View>

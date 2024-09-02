@@ -1,6 +1,14 @@
 import React from "react";
-import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { useRouter } from "expo-router";
+import { routes } from "@/utils/routes";
 
 interface CardProps {
   name?: string;
@@ -8,6 +16,8 @@ interface CardProps {
 }
 
 const ClosetCard: React.FC<CardProps> = ({ name, onPress }) => {
+  const router = useRouter();
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -23,12 +33,18 @@ const ClosetCard: React.FC<CardProps> = ({ name, onPress }) => {
             className="w-full h-full justify-center items-center"
             resizeMode="cover"
           >
-            <View
-              style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
-              className="w-full h-full absolute justify-center items-center"
+            <Pressable
+              onPress={() => {
+                router.replace(routes.closetExpanded + name?.split(" ")[1]);
+              }}
             >
-              <Text className="text-base text-white text-center">{name}</Text>
-            </View>
+              <View
+                style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
+                className="w-full h-full absolute justify-center items-center"
+              >
+                <Text className="text-base text-white text-center">{name}</Text>
+              </View>
+            </Pressable>
           </ImageBackground>
         ) : (
           <View
