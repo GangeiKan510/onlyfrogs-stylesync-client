@@ -23,13 +23,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
-
-      - name: Install Yarn
-        run: npm install -g yarn
+          node-version: "18.x"
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Install Expo CLI
         run: npm install -g expo-cli
@@ -43,4 +40,4 @@ jobs:
           fi
 
       - name: Run tests
-        run: yarn test
+        run: npm test
