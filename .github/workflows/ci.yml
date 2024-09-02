@@ -12,32 +12,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        platform: [android, ios]
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "18.x"
+          cache: npm
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Install Expo CLI
-        run: npm install -g expo-cli
-
-      - name: Build for ${{ matrix.platform }}
-        run: |
-          if [ "${{ matrix.platform }}" == "android" ]; then
-            expo build:android --no-wait;
-          else
-            expo build:ios --no-wait;
-          fi
+      - name: Build on EAS
+        run: eas build --platform all --non-interactive --no-wait
 
       - name: Run tests
         run: npm test
