@@ -1,4 +1,3 @@
-// AddButton.tsx
 import React, { useRef } from "react";
 import { View, Pressable, Animated } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
@@ -26,7 +25,7 @@ const AddButton = ({ onPress, isActive }: AddButtonProps) => {
       duration: 300,
       useNativeDriver: true,
     }).start();
-  }, [isActive]);
+  }, [isActive, rotation]);
 
   return (
     <Pressable

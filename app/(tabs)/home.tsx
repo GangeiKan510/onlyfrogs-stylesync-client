@@ -7,7 +7,9 @@ import HomeTabs from "@/components/home/HomeTabs";
 const Home = () => {
   return (
     <View className="flex-1 bg-[#ffffff]">
-      <Header />
+      <View className="mt-14">
+        <Header />
+      </View>
       <View className="mx-7">
         <TopGreeting />
         <HomeTabs />

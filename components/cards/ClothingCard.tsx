@@ -18,7 +18,7 @@ const ClothingCard: React.FC<CardProps> = ({ name, onPress }) => {
           source={{
             uri: "https://www.mooreseal.com/wp-content/uploads/2013/11/dummy-image-square-300x300.jpg",
           }}
-          className="w-full h-full justify-center items-center"
+          className="w-full  h-full justify-center items-center"
           resizeMode="cover"
         >
           <View
