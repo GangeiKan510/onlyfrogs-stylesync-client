@@ -41,6 +41,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "78c3150d-d430-475e-aa23-9255f216dcdc"
+      }
+    },
+    "owner": "seannamo15"
   }
 }
