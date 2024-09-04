@@ -1,13 +1,12 @@
-import { Text, View, FlatList, Animated, Alert } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
-import * as ImagePicker from "expo-image-picker"; // Import Image Picker API
-import { Camera } from "expo-camera"; // Import Camera API
+import { Text, View, FlatList, Animated, Alert } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Camera } from "expo-camera";
 import { useLocalSearchParams, usePathname } from "expo-router";
 import Header from "../../../components/common/Header";
 import ClothingCard from "../../../components/cards/ClothingCard";
-import AddButton from "../../../components/buttons/AddButton";
-import UploadClothingModal from "../../../components/dialogs/UploadClothingModal";
 import BackButton from "../../../components/buttons/BackButton";
+import Fab from "../../../components/buttons/Fab";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
@@ -17,20 +16,15 @@ const Page = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
+
   const requestCameraPermissions = async () => {
     const { status } = await Camera.requestCameraPermissionsAsync();
     setHasPermission(status === "granted");
   };
 
   useEffect(() => {
-    // Call the permissions request on component mount
     requestCameraPermissions();
   }, []);
-
-  const handleOpenModal = () => {
-    console.log("upload clothing");
-    setIsModalVisible(true);
-  };
 
   const handleCloseModal = () => {
     console.log("menu close");
@@ -76,7 +70,7 @@ const Page = () => {
         const newImages = result.assets.map((asset) => asset.uri);
         setSelectedImages((prevImages) =>
           [...prevImages, ...newImages].slice(0, 10),
-        ); // Concatenate and limit to 10
+        );
         console.log("Images selected:", newImages);
         handleCloseModal();
       } else {
@@ -125,7 +119,7 @@ const Page = () => {
           opacity: headerOpacity,
           marginBottom: headerMarginBottom,
         }}
-        className="items-center mb-1] border-[#F3F3F3]"
+        className="items-center mb-1 border-[#F3F3F3]"
       >
         <Text className="text-xl font-bold text-center">Closet Title</Text>
         <Text className="text-base">Closet Description</Text>
@@ -145,17 +139,14 @@ const Page = () => {
           { useNativeDriver: false },
         )}
       />
-      <View className="absolute z-10 bottom-10 right-10">
-        <AddButton onPress={handleOpenModal} isActive={isModalVisible} />
-      </View>
 
-      <UploadClothingModal
-        visible={isModalVisible}
-        onClose={handleCloseModal}
-        onTakePicture={handleTakePicture}
-        onUploadFromGallery={handleUploadFromGallery}
-        onLinkUpload={handleLinkUpload}
-      />
+      <View className="absolute z-10 bottom-8 right-10">
+        <Fab
+          onCameraPress={handleTakePicture}
+          onGalleryPress={handleUploadFromGallery}
+          onLinkPress={handleLinkUpload}
+        />
+      </View>
     </View>
   );
 };
