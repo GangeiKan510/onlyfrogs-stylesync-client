@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   TextInput,
@@ -7,11 +7,10 @@ import {
   StyleSheet,
   Modal,
   Pressable,
-  Button,
+  FlatList,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useState } from "react";
 
 const styles = StyleSheet.create({
   container: {
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "white",
     borderRadius: 10,
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   buttonRow: {
     flexDirection: "row",
@@ -65,22 +64,57 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    margin: 5,
+    margin: 2,
     padding: 5,
     backgroundColor: "white",
-    borderWidth: 1,
-    borderRadius: 5,
+    borderWidth: 1.5,
+    borderRadius: 10,
     borderColor: "#7AB2B2",
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "#7AB2B2",
+    textAlign: "center",
+  },
+  item: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
   },
 });
 
+const items = [
+  { id: "1", category: "Formal", name: "Suit" },
+  { id: "2", category: "Casual", name: "T-shirt" },
+  { id: "3", category: "Street", name: "Jacket" },
+  { id: "4", category: "Sweater", name: "Cardigan" },
+  { id: "5", category: "Summer", name: "Shorts" },
+  { id: "6", category: "Costume", name: "Elf" },
+];
+
 const PiecesTab = () => {
-  const [search, setSearch] = React.useState("");
+  const [search, setSearch] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
   const handleModalVisibility = () => {
     setModalVisible(!modalVisible);
   };
+
+  const toggleFilter = (filter: string) => {
+    setSelectedFilters((prevFilters) =>
+      prevFilters.includes(filter)
+        ? prevFilters.filter((f) => f !== filter)
+        : [...prevFilters, filter],
+    );
+  };
+
+  const filteredItems = items.filter(
+    (item) =>
+      (selectedFilters.length === 0 ||
+        selectedFilters.includes(item.category)) &&
+      item.name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <SafeAreaView>
@@ -90,7 +124,7 @@ const PiecesTab = () => {
           onChangeText={setSearch}
           value={search}
           placeholder="Search for pieces"
-        ></TextInput>
+        />
         <Ionicons
           style={styles.searchIcon}
           name="search-outline"
@@ -118,24 +152,47 @@ const PiecesTab = () => {
           onPress={handleModalVisibility}
         >
           <View style={styles.modalContent}>
+            <View>
+              <Text style={{ textAlign: "right", fontSize: 20 }}>Filter</Text>
+            </View>
             <View style={styles.buttonRow}>
-              <View>
-                <Text>Filter</Text>
-              </View>
-              <View>
-                <Button title="Formal" onPress={() => {}} />
-                <Button title="Casual" onPress={() => {}} />
-                <Button title="Street" onPress={() => {}} />
-                <Button title="Sweater" onPress={() => {}} />
-                <Button title="Summer" onPress={() => {}} />
-                <Button title="Costume" onPress={() => {}} />
-              </View>
+              {[
+                "Formal Attire",
+                "Casual",
+                "Street",
+                "Sweater",
+                "Summer",
+                "Costume",
+              ].map((filter) => (
+                <Pressable
+                  key={filter}
+                  style={[
+                    styles.button,
+                    {
+                      backgroundColor: selectedFilters.includes(filter)
+                        ? "#7AB2B2"
+                        : "white",
+                    },
+                  ]}
+                  onPress={() => toggleFilter(filter)}
+                >
+                  <Text style={styles.buttonText}>{filter}</Text>
+                </Pressable>
+              ))}
             </View>
           </View>
         </Pressable>
       </Modal>
 
-      <Text>Find your Pieces here</Text>
+      <FlatList
+        data={filteredItems}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.item}>
+            <Text>{item.name}</Text>
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 };
