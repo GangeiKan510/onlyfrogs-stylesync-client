@@ -46,20 +46,17 @@ const Page = () => {
 
   const clothingItems = new Array(20).fill(0);
 
-  // Animated value for hiding the title and description and adjusting margin
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  // Interpolating opacity
   const headerOpacity = scrollY.interpolate({
-    inputRange: [0, 100], // Scroll range
-    outputRange: [1, 0], // Opacity range
-    extrapolate: "clamp", // Prevent values outside the range
+    inputRange: [0, 100],
+    outputRange: [1, 0],
+    extrapolate: "clamp",
   });
 
-  // Interpolating margin bottom
   const headerMarginBottom = scrollY.interpolate({
     inputRange: [0, 200],
-    outputRange: [30, -30], // Adjust the starting and ending margin
+    outputRange: [30, -30],
     extrapolate: "clamp",
   });
 
@@ -74,11 +71,10 @@ const Page = () => {
         </View>
       )}
 
-      {/* Title and Description with Animated Opacity and Margin */}
       <Animated.View
         style={{
-          opacity: headerOpacity, // Apply animated opacity
-          marginBottom: headerMarginBottom, // Apply animated margin bottom
+          opacity: headerOpacity,
+          marginBottom: headerMarginBottom,
         }}
         className="items-center mb-1] border-[#F3F3F3]"
       >
@@ -86,7 +82,6 @@ const Page = () => {
         <Text className="text-base">Closet Description</Text>
       </Animated.View>
 
-      {/* Clothing Card List */}
       <Animated.FlatList
         data={clothingItems}
         renderItem={() => <ClothingCard />}
@@ -98,11 +93,9 @@ const Page = () => {
         showsVerticalScrollIndicator={true}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }, // Enable native driver for better performance
+          { useNativeDriver: false },
         )}
       />
-
-      {/* Floating Add Button */}
       <View className="absolute z-10 bottom-10 right-10">
         <AddButton onPress={handleOpenModal} isActive={isModalVisible} />
       </View>
