@@ -1,5 +1,7 @@
-import { Text, View, FlatList, Animated } from "react-native";
-import React, { useState, useRef } from "react";
+import { Text, View, FlatList, Animated, Alert } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import * as ImagePicker from "expo-image-picker"; // Import Image Picker API
+import { Camera } from "expo-camera"; // Import Camera API
 import { useLocalSearchParams, usePathname } from "expo-router";
 import Header from "../../../components/common/Header";
 import ClothingCard from "../../../components/cards/ClothingCard";
@@ -9,12 +11,21 @@ import BackButton from "../../../components/buttons/BackButton";
 
 const Page = () => {
   const { id } = useLocalSearchParams();
-
   const path = usePathname();
   const routeName = path.split("/")[1];
   const includeBack = ["closet"];
-
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const requestCameraPermissions = async () => {
+    const { status } = await Camera.requestCameraPermissionsAsync();
+    setHasPermission(status === "granted");
+  };
+
+  useEffect(() => {
+    // Call the permissions request on component mount
+    requestCameraPermissions();
+  }, []);
 
   const handleOpenModal = () => {
     console.log("upload clothing");
@@ -26,16 +37,54 @@ const Page = () => {
     setIsModalVisible(false);
   };
 
-  const handleTakePicture = () => {
-    console.log("Take Picture option selected");
-    handleCloseModal();
-    // logic to open camera
+  const handleTakePicture = async () => {
+    await requestCameraPermissions();
+
+    if (hasPermission) {
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+      });
+
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        const uri = result.assets[0].uri;
+        console.log("Photo taken:", uri);
+        handleCloseModal();
+      } else {
+        console.log("Camera action canceled or no image captured");
+      }
+    } else {
+      console.log("Camera permission denied");
+    }
   };
 
-  const handleUploadFromGallery = () => {
-    console.log("Upload from Gallery option selected");
-    handleCloseModal();
-    // logic to open gallery
+  const handleUploadFromGallery = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (status === "granted") {
+      if (selectedImages.length >= 10) {
+        Alert.alert("Limit Reached", "You can only select up to 10 images.");
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+      });
+
+      if (!result.canceled && result.assets) {
+        const newImages = result.assets.map((asset) => asset.uri);
+        setSelectedImages((prevImages) =>
+          [...prevImages, ...newImages].slice(0, 10),
+        ); // Concatenate and limit to 10
+        console.log("Images selected:", newImages);
+        handleCloseModal();
+      } else {
+        console.log("No image selected");
+      }
+    } else {
+      console.log("Media library permission denied");
+    }
   };
 
   const handleLinkUpload = () => {
